@@ -6,11 +6,48 @@ h2 {
   font: arial;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-seri;
   font-size: 20px;
-  
 }
 
 header,
 footer {
-  background-color: lightblue;
+  background-color: rgb(255, 255, 255);
   padding: 12px;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-header ul li a {
+  padding: 0px 29px;
+  color: black;
+}
+
+.main-header ul {
+  list-style: none;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.bild {
+  z-index: 2;
+}
+
+.head {
+  z-index: 1;
+}
+
+.home-fotografie-grid {
+  border: solid 1px black;
+}
+
+.Homeportrait {
+  border: solid red 5px;
 }

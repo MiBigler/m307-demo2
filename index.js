@@ -1,20 +1,41 @@
 import { createApp } from "./config.js";
 
 const app = createApp({
-  user: "autumn_star_7622",
-  host: "168.119.168.41",
-  database: "demo",
-  password: "uaioysdfjoysfdf",
-  port: 18324,
+  user: "funky_town_8573",
+  host: "bbz.cloud",
+  database: "funky_town_8573",
+  password: "abd621f061b3a48574638d63fbe6b9238",
+  port: 30211,
 });
 
 /* Startseite */
 app.get("/", async function (req, res) {
-  res.render("start", {});
+  const posts = await app.locals.pool.query("select * from posts");
+  res.render("start", { posts: posts.rows });
+});
+
+app.get("/new post", async function (req, res) {
+  if (!req.session.userid) {
+    res.redirect("/login");
+    return;
+  }
+  res.render("new post", {});
 });
 
 app.get("/impressum", async function (req, res) {
   res.render("impressum", {});
+});
+
+app.get("/portfolio", async function (req, res) {
+  res.render("portfolio", {});
+});
+
+app.post("/create_post", async function (req, res) {
+  await app.locals.pool.query(
+    "INSERT INTO posts (title, bild, user_id) VALUES ($1, $2, $3)",
+    [req.body.title, req.body.bild, req.body.user_id]
+  );
+  res.redirect("/portfolio");
 });
 
 /* Wichtig! Diese Zeilen müssen immer am Schluss der Website stehen! */

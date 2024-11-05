@@ -1,0 +1,18 @@
+<section class="home-fotografie-grid">
+    {{#posts}}
+    <a href="/post/{{id}}">
+    <container class="fotografie-grid">
+    <h3 class="title-fotografie">{{title}}</h3>
+    <img src="/Model.jpg" width="100%" height="auto">
+    <p>{{bild}}
+    </container>
+        {{/posts}} 
+    </a>
+    </section>
+    
+    <form action="/create_post" method="post">
+      <input type="text" name="title" />
+      <input type="text" name="bild" />
+      <input type="text" name="user_id" />
+      <input type="submit" />
+    </form>

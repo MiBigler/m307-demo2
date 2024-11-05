@@ -1,11 +1,29 @@
-<h1>Fotografie</h1>
+<div style="position: relative; text-align: center; color: white;">
+ <div class="Homeportrait"><img src="Bild.jpg" alt="Beispielbild" style="width:120%;" />
+  <div
+    style="position: absolute; top: 40%; left: 90%; transform: translate(-50%, -50%);"
+  >
+    Finde dein perfektes Match für kreative Projekte. Fotografen und Models
+    vernetzen sich hier.
+  </div> 
+  </div>
+</div>
 
-<h2>Finde dein perfektes Match für kreative Projekte. 
-    Fotografen und Models vernetzen sich hier.</h2>
-
+<section class="home-fotografie-grid">
 {{#posts}}
-<hr>
-<h3>{{title}}</h3>
+<a href="/post/{{id}}">
+<container class="fotografie-grid">
+<h3 class="title-fotografie">{{title}}</h3>
+<img src="/Model.jpg" width="100%" height="auto">
 <p>{{bild}}
+</container>
     {{/posts}} 
-{{> contactform}}
+</a>
+</section>
+
+<form action="/create_post" method="post">
+  <input type="text" name="title" />
+  <input type="text" name="bild" />
+  <input type="text" name="user_id" />
+  <input type="submit" />
+</form>
