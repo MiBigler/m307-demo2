@@ -1,29 +1,23 @@
-<div style="position: relative; text-align: center; color: white;">
- <div class="Homeportrait"><img src="Bild.jpg" alt="Beispielbild" style="width:120%;" />
-  <div
-    style="position: absolute; top: 40%; left: 90%; transform: translate(-50%, -50%);"
-  >
-    Finde dein perfektes Match für kreative Projekte. Fotografen und Models
-    vernetzen sich hier.
-  </div> 
+<div class="container">
+  <div class="home-portrait">
+    <img src="Bild.jpg" alt="Beispielbild" class="image">
+    <div class="overlay-text">
+      Finde dein perfektes Match für kreative Projekte. Fotografen und Models vernetzen sich hier.
+    </div>
   </div>
 </div>
 
-<section class="home-fotografie-grid">
+<section class="gallary">
 {{#posts}}
+<div class="bildergalerie">
 <a href="/post/{{id}}">
 <container class="fotografie-grid">
 <h3 class="title-fotografie">{{title}}</h3>
 <img src="/Model.jpg" width="100%" height="auto">
-<p>{{bild}}
+
 </container>
     {{/posts}} 
 </a>
+</div>
 </section>
 
-<form action="/create_post" method="post">
-  <input type="text" name="title" />
-  <input type="text" name="bild" />
-  <input type="text" name="user_id" />
-  <input type="submit" />
-</form>
