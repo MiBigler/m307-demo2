@@ -1,23 +1,22 @@
 <div class="container">
   <div class="home-portrait">
-    <img src="Bild.jpg" alt="Beispielbild" class="image">
+    <img src="Bild.jpg" alt="Beispielbild" class="image" />
     <div class="overlay-text">
-      Finde dein perfektes Match für kreative Projekte. Fotografen und Models vernetzen sich hier.
+      Finde dein perfektes Match für kreative Projekte. Fotografen und Models
+      vernetzen sich hier.
     </div>
   </div>
 </div>
 
 <section class="gallary">
-{{#posts}}
-<div class="bildergalerie">
-<a href="/post/{{id}}">
-<container class="fotografie-grid">
-<h3 class="title-fotografie">{{title}}</h3>
-<img src="/Model.jpg" width="100%" height="auto">
+  <div class="bildergalerie">
+    {{#posts}}
+      <a href="/post/{{id}}">
+        <container class="fotografie-grid">
+          <img src="/Model_1.jpg" width="100%" height="auto" />
 
-</container>
-    {{/posts}} 
-</a>
-</div>
+        </container>
+      </a>
+    {{/posts}}
+  </div>
 </section>
-

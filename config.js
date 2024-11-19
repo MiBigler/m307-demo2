@@ -36,10 +36,10 @@ export function createApp(dbconfig) {
   });
 
   app.post("/register", function (req, res) {
-    var password = bcrypt.hashSync(req.body.password, 10);
+    var passwort = bcrypt.hashSync(req.body.passwort, 10);
     pool.query(
-      "INSERT INTO users (username, password) VALUES ($1, $2)",
-      [req.body.username, password],
+      "INSERT INTO users (email, passwort) VALUES ($1, $2)",
+      [req.body.email, passwort],
       (error, result) => {
         if (error) {
           console.log(error);
@@ -55,15 +55,15 @@ export function createApp(dbconfig) {
 
   app.post("/login", function (req, res) {
     pool.query(
-      "SELECT * FROM users WHERE username = $1",
-      [req.body.username],
+      "SELECT * FROM users WHERE email = $1",
+      [req.body.email],
       (error, result) => {
         if (error) {
           console.log(error);
         }
-        if (bcrypt.compareSync(req.body.password, result.rows[0].password)) {
-          req.session.userid = result.rows[0].id;
-          res.redirect("/");
+        if (bcrypt.compareSync(req.body.passwort, result.rows[0].passwort)) {
+          req.session.user_id = result.rows[0].id;
+          res.redirect("/portfolio");
         } else {
           res.redirect("/login");
         }
