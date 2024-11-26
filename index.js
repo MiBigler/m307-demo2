@@ -37,8 +37,17 @@ app.post("/create_post", async function (req, res) {
   );
   res.redirect("/portfolio");
 });
+app.get("/events/:id", async function (req, res) {});
 
 /* Wichtig! Diese Zeilen müssen immer am Schluss der Website stehen! */
 app.listen(3010, () => {
   console.log(`Example app listening at http://localhost:3010`);
+});
+
+app.get("/post/:id", async function (req, res) {
+  const post = await app.locals.pool.query(
+    "SELECT * FROM posts WHERE id = $1",
+    [req.params.id]
+  );
+  res.render("details", { post: post.rows[0] });
 });

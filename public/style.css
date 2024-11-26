@@ -14,6 +14,58 @@ footer {
   padding: 12px;
 }
 
+/* .navigation {
+  border: solid 1px red;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-right {
+  border: solid 1px blue;
+}
+
+.logo {
+  border: solid 3px green;
+  width: 100%;
+}
+
+.logo img {
+  width: 10%;
+} */
+
+header {
+  width: 100%;
+  padding: 0 20px; /* Optional: Padding für ein bisschen Abstand */
+  box-sizing: border-box;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Vertikale Zentrierung */
+}
+
+.logo img {
+  max-height: 50px; /* Höhe des Logos anpassen, falls nötig */
+  object-fit: contain; /* Verhindert Verzerrung */
+}
+
+.nav-right {
+  display: flex;
+  gap: 15px; /* Abstand zwischen den Links */
+}
+
+.nav-right a {
+  text-decoration: none; /* Entfernt Unterstriche */
+  color: #000; /* Schriftfarbe */
+  font-size: 16px; /* Schriftgröße */
+  font-weight: 500; /* Optional: Schriftstärke */
+}
+
+.nav-right a:hover {
+  color: #007bff; /* Optional: Hover-Effekt */
+}
+
 .main-header {
   display: flex;
   justify-content: space-between;
@@ -136,12 +188,12 @@ a.button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0;
   overflow: hidden;
 }
 
 .home-portrait {
   position: relative;
+  display: inline-block;
   width: 100%;
   height: 100%;
 }
@@ -153,24 +205,111 @@ a.button:hover {
   display: block;
 }
 
-.overlay-text {
+/* Container für zentriertes Layout */
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Bild: Skalierung und Anpassung */
+.home-portrait {
+  position: relative;
+  width: 100%;
+  max-width: 1200px; /* Optionale Begrenzung der Breite */
+  height: auto;
+}
+
+.home-portrait .image {
+  width: 100%;
+  height: auto; /* Höhe passt sich proportional an */
+  object-fit: cover;
+  display: block;
+}
+
+/* Overlay: Zentrierter Inhalt */
+.overlay {
   position: absolute;
-  top: 50%;
-  left: 40%;
-  transform: translate(-20%, -40%);
-  font-size: 3vw;
+  top: 50%; /* Zentriert den Inhalt vertikal */
+  left: 50%;
+  transform: translate(-50%, -50%); /* Horizontal und vertikal zentriert */
+  width: 90%; /* Begrenzte Breite, um Inhalte flexibel darzustellen */
+  text-align: center;
+  color: #000; /* Dunkler Text */
+  display: flex;
+  flex-direction: column; /* Text und Button untereinander */
+  align-items: center;
+  gap: 1rem; /* Abstand zwischen Text und Button */
+}
+
+/* Overlay-Text: Maximalbreite und Lesbarkeit */
+.overlay-text {
+  font-size: 1.5rem; /* Standardgröße für den Text */
   font-family: Arial, sans-serif;
   font-weight: bold;
-  max-width: 80%;
-  text-align: center;
-  color: #fff;
+  max-width: 600px; /* Maximale Breite für bessere Lesbarkeit */
+  line-height: 1.5; /* Abstand zwischen Textzeilen */
+  color: #000;
   word-wrap: break-word;
 }
 
-@media (max-width: 768px) .overlay-text {
-  font-size: 6vw;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 0 10px;
+.buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Button: Responsiv und interaktiv */
+.cta-button {
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  gap: 1rem;
+}
+
+.cta-button:hover {
+  background-color: #e64a19; /* Hover-Farbe */
+  color: #fff; /* Weißer Text bei Hover */
+  transform: scale(1.05); /* Button hebt sich hervor */
+}
+
+/* --- Responsives Design --- */
+@media (max-width: 1024px) {
+  .overlay-text {
+    font-size: 1.4rem; /* Schriftgröße für Tablets */
+    max-width: 500px; /* Textblock etwas schmaler */
+  }
+}
+
+@media (max-width: 768px) {
+  .overlay-text {
+    font-size: 1.2rem; /* Kleinere Schriftgröße für Mobilgeräte */
+    max-width: 400px; /* Begrenzte Breite für kleinere Geräte */
+  }
+  .cta-button {
+    font-size: 0.9rem; /* Kleinere Schriftgröße für den Button */
+    padding: 10px 20px; /* Reduzierte Polsterung */
+  }
+}
+
+@media (max-width: 480px) {
+  .overlay-text {
+    font-size: 1rem; /* Noch kleinere Schriftgröße für sehr kleine Geräte */
+    max-width: 90%; /* Nutzt fast die gesamte Bildschirmbreite */
+  }
+  .cta-button {
+    font-size: 0.8rem; /* Kompakter Button für kleine Bildschirme */
+    padding: 8px 16px;
+  }
 }
