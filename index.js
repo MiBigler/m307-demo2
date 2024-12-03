@@ -1,4 +1,4 @@
-import { createApp } from "./config.js";
+import { createApp, upload } from "./config.js";
 
 const app = createApp({
   user: "funky_town_8573",
@@ -14,12 +14,12 @@ app.get("/", async function (req, res) {
   res.render("start", { posts: posts.rows });
 });
 
-app.get("/new post", async function (req, res) {
-  if (!req.session.userid) {
+app.get("/new_post", async function (req, res) {
+  if (!req.session.user_id) {
     res.redirect("/login");
     return;
   }
-  res.render("new post", {});
+  res.render("new_post", {});
 });
 
 app.get("/impressum", async function (req, res) {
@@ -30,18 +30,12 @@ app.get("/portfolio", async function (req, res) {
   res.render("portfolio", {});
 });
 
-app.post("/create_post", async function (req, res) {
+app.post("/create_post", upload.single("image"), async function (req, res) {
   await app.locals.pool.query(
     "INSERT INTO posts (title, bild, user_id) VALUES ($1, $2, $3)",
-    [req.body.title, req.body.bild, req.body.user_id]
+    [req.body.title, req.file.filename, req.session.user_id]
   );
-  res.redirect("/portfolio");
-});
-app.get("/events/:id", async function (req, res) {});
-
-/* Wichtig! Diese Zeilen müssen immer am Schluss der Website stehen! */
-app.listen(3010, () => {
-  console.log(`Example app listening at http://localhost:3010`);
+  res.redirect("/");
 });
 
 app.get("/post/:id", async function (req, res) {
@@ -50,4 +44,9 @@ app.get("/post/:id", async function (req, res) {
     [req.params.id]
   );
   res.render("details", { post: post.rows[0] });
+});
+
+/* Wichtig! Diese Zeilen müssen immer am Schluss der Website stehen! */
+app.listen(3010, () => {
+  console.log(`Example app listening at http://localhost:3010`);
 });

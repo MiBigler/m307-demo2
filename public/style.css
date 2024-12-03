@@ -311,5 +311,15 @@ a.button:hover {
   .cta-button {
     font-size: 0.8rem; /* Kompakter Button für kleine Bildschirme */
     padding: 8px 16px;
+    text-decoration: none;
   }
+}
+
+.cta-button a:visited {
+  color: black;
+}
+
+.cta-button a {
+  color: black;
+  text-decoration: none;
 }
