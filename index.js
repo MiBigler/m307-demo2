@@ -30,7 +30,7 @@ app.get("/portfolio", async function (req, res) {
   res.render("portfolio", {});
 });
 
-app.post("/create_post", upload.single("image"), async function (req, res) {
+app.post("/create_post", upload.single("bild"), async function (req, res) {
   await app.locals.pool.query(
     "INSERT INTO posts (title, bild, user_id) VALUES ($1, $2, $3)",
     [req.body.title, req.file.filename, req.session.user_id]

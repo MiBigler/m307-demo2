@@ -7,11 +7,13 @@ import multer from "multer";
 const upload = multer({ dest: "public/uploads/" });
 import bcrypt from "bcrypt";
 import sessions from "express-session";
+import bbz307 from "bbz307";
 
 export function createApp(dbconfig) {
   const app = express();
 
   const pool = new Pool(dbconfig);
+  const login = new bbz307.Login("users", ["id", "passwort", "email"], pool);
 
   app.engine("handlebars", engine());
   app.set("view engine", "handlebars");
@@ -44,11 +46,23 @@ export function createApp(dbconfig) {
         if (error) {
           console.log(error);
         }
-        res.redirect("/login");
+        res.redirect("/register");
       }
     );
   });
 
+  app.post("/register", upload.none(), async (req, res) => {
+    const user = await login.registerUser(req);
+    if (user) {
+      res.redirect("/login");
+      return;
+    } else {
+      res.redirect("/register");
+      return;
+    }
+  });
+
+  //Login//
   app.get("/login", function (req, res) {
     res.render("login");
   });
@@ -63,7 +77,7 @@ export function createApp(dbconfig) {
         }
         if (bcrypt.compareSync(req.body.passwort, result.rows[0].passwort)) {
           req.session.user_id = result.rows[0].id;
-          res.redirect("/portfolio");
+          res.redirect("/post");
         } else {
           res.redirect("/login");
         }
@@ -71,7 +85,41 @@ export function createApp(dbconfig) {
     );
   });
 
+  //Posts//
+  app.get("/post", function (req, res) {
+    res.render("post");
+  });
+
+  app.post("/post", upload.single("bild"), async function (req, res) {
+    await pool.query(
+      "INSERT INTO posts (user_id, title, bild) VALUES ($1, $2, $3)",
+      [req.body.user_id, req.body.title, req.file.bild]
+    );
+    res.redirect("/");
+  });
+
+  app.post("/login", upload.none(), async (req, res) => {
+    const user = await login.loginUser(req);
+    if (!user) {
+      res.redirect("/login");
+      return;
+    } else {
+      res.redirect("/intern");
+      return;
+    }
+  });
+
   return app;
 }
+
+/* app.get("/intern", async (req, res) => {
+  const user = await login.loggedInUser(req); // <--
+  if (!user) {
+    // <--
+    res.redirect("/login"); // <--
+    return; // <--
+  } // <--
+  res.render("intern", { user: user });
+}); */
 
 export { upload };
