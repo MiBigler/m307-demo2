@@ -1,21 +1,25 @@
 <form action="/create_post" enctype="multipart/form-data" method="post">
-  <label for="user_id">ID:</label>
-  <input type="text" id="user_id" name="user_id" required /><br />
 
-  <label for="title">Titel:</label>
-  <input type="text" id="title" name="title" required /><br />
-
-  <div class="left-column">
-    <label for="bild">
-      <img
-        src="/new_post-icon.png"
-        width="100px"
-        height="100px"
-        alt="Upload Icon"
-      />
-    </label>
-    <input type="file" id="bild" name="bild" accept="/*" required />
+  <div class="main_container">
+    <div class="container_profile">
+      <div class="left-column">
+        <label for="bild">
+          <img
+            src="/new_post-icon.png"
+            width="300px"
+            height="300px"
+            alt="Upload Icon"
+          />
+        </label>
+        <input type="file" id="bild" name="bild" accept="/*" required />
+      </div>
+      <div class="right-column">
+        <label for="user_id">ID:</label>
+        <input type="text" id="user_id" name="user_id" required /><br />
+        <label for="title">Titel:</label>
+        <input type="text" id="title" name="title" required /><br />
+        <input type="submit" value="Posten" />
+      </div>
+    </div>
   </div>
-
-  <input type="submit" value="Posten" />
 </form>
