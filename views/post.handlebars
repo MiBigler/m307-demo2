@@ -1,21 +1,6 @@
-<form action="/create_post" enctype="multipart/form-data" method="post">
-  <label for="user_id">ID:</label>
-  <input type="text" id="user_id" name="user_id" required /><br />
+{{#posts}}
 
-  <label for="title">Titel:</label>
-  <input type="text" id="title" name="title" required /><br />
-
-  <div class="left-column">
-    <label for="bild">
-      <img
-        src="/uploads/images/new_post-icon.svg"
-        width="30px"
-        height="30px"
-        alt="Upload Icon"
-      />
-    </label>
-    <input type="file" id="bild" name="bild" accept="image/*" required />
-  </div>
-
-  <input type="submit" value="Posten" />
-</form>
+  <h1>{{title}}</h1>
+  <p>{{user_id}}</p>
+  <small>{{bild}}</small>
+{{/posts}}

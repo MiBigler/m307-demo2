@@ -10,11 +10,10 @@ const app = createApp({
 
 /* Startseite */
 app.get("/", async function (req, res) {
-  const posts = await app.locals.pool.query("SELECT * FROM posts");
+  const posts = await app.locals.pool.query("select * from posts");
   res.render("start", { posts: posts.rows });
 });
 
-/* Neue Posts erstellen */
 app.get("/new_post", async function (req, res) {
   if (!req.session.user_id) {
     res.redirect("/login");
@@ -23,34 +22,43 @@ app.get("/new_post", async function (req, res) {
   res.render("new_post", {});
 });
 
-app.post("/create_post", upload.single("bild"), async function (req, res) {
-  const imagePath = `/uploads/${req.file.filename}`; // Bildpfad
-  await app.locals.pool.query(
-    "INSERT INTO posts (title, bild, user_id) VALUES ($1, $2, $3)",
-    [req.body.title, imagePath, req.session.user_id]
-  );
-  res.redirect("/");
-});
-
-/* Einzelne Posts anzeigen */
-app.get("/post/:id", async function (req, res) {
-  const post = await app.locals.pool.query(
-    "SELECT * FROM posts WHERE id = $1",
-    [req.params.id]
-  );
-  res.render("details", { post: post.rows[0] });
-});
-
-/* Impressum und Portfolio */
 app.get("/impressum", async function (req, res) {
   res.render("impressum", {});
 });
 
-app.get("/portfolio", async function (req, res) {
-  res.render("portfolio", {});
+/* app.get("/profile", async function (req, res) {
+  const posts = await app.locals.pool.query(
+    "SELECT * FROM posts WHERE user_id"
+  );
+  res.render("start", { posts: posts.rows });
+}); */
+
+app.get("/photo", async function (req, res) {
+  const posts = await app.locals.pool.query("select * from posts");
+  res.render("photo", { posts: posts.rows });
+});
+app.get("/profile", async function (req, res) {
+  res.render("profile", {});
 });
 
-/* Server starten */
+app.post("/create_post", upload.single("bild"), async function (req, res) {
+  await app.locals.pool.query(
+    "INSERT INTO posts (title, bild, user_id) VALUES ($1, $2, $3)",
+    [req.body.title, req.file.filename, req.session.bild]
+  );
+  res.redirect("/");
+});
+
+/* post id */
+app.get("/post/:id", async function (req, res) {
+  const posts = await app.locals.pool.query(
+    "SELECT * from posts WHERE id = $1",
+    [req.params.id]
+  );
+  res.render("post", { posts: posts.rows });
+});
+
+/* Wichtig! Diese Zeilen müssen immer am Schluss der Website stehen! */
 app.listen(3010, () => {
   console.log(`Example app listening at http://localhost:3010`);
 });
